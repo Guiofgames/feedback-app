@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+/* Remove espaçamento padrão do navegador para o topo da página
+   Isso evita que a cor de fundo do elemento <html> apareça como faixa branca
+   acima do header quando o body tiver margem padrão. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1b1b1b;
+    scroll-behavior: smooth; /* rolagem suave para âncoras */
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #1b1b1b;
+    color: var(--cor-texto-claro);
+    line-height: 1.6;
+}
+
+.header {
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #ffffff;
+    margin: 0;
+    border-bottom: 2px solid rgb(19, 18, 18);
+    /* hero background: gradient + image fallback */
+    background-image: linear-gradient(to bottom, rgba(14,13,13,0.85), rgba(14,13,13,0.6)), url('./img/fundofilmes.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Navegação dentro do header */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* reduzido ainda mais para um visual mais compacto */
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.logo-accent {
+    color: #e50914; /* destaque vermelho de cinema */
+}
+
+.nav-links {
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: rgba(233, 233, 233, 0.9);
+    font-size: 19px;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 8px;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Hero central */
+.hero {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 18px 32px 18px; /* padding ligeiramente menor para compactar o hero */
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 900px;
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin: 0 0 10px 0;
+    line-height: 1.05;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+.hero-sub {
+    font-size: 28px;
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 20px 0;
+}
+
+.btn-cta {
+    display: inline-block;
+    background: #e50914;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+}
+
+/* Toggle (hamburger) para mobile */
+.nav-toggle {
+    display: none; /* mostrado em telas pequenas via media query */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.hamburger::before { top: -7px; }
+.hamburger::after { top: 7px; }
+
+/* Header shrunken state */
+.header.scrolled {
+    min-height: 18vh;
+    transition: min-height 200ms ease;
+}
+
+.header.scrolled .hero-content h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+/* Mobile behavior for nav */
+@media (max-width: 768px) {
+    .nav-toggle { display: inline-flex; }
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 18px;
+        background: rgba(10,10,10,0.98);
+        flex-direction: column;
+        gap: 0;
+        padding: 12px 14px;
+        border-radius: 8px;
+        display: none; /* shown when .open */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links li { margin: 6px 0; }
+}
+
+/* Conteúdo Principal */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+#em-cartaz {
+    scroll-margin-top: 120px; 
+}
+
+@media (max-width: 768px) {
+    #em-cartaz { scroll-margin-top: 80px; }
+}
+
+.container h2 {
+    color:#ff000d;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+/* Card de Filme */
+.filme-card {
+    display: flex;
+    align-items: flex-start;
+    color: #dfdfdf;
+    background-color: #0e0e0e;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease;
+}
+
+.filme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.capa-container {
+    flex-shrink: 0;
+    margin-right: 25px;
+}
+
+.capa-container img {
+    width: 200px; /* Largura padrão do pôster */
+    height: 300px; /* Altura padrão do pôster */
+    border-radius: 6px;
+    border-radius: 5px;
+    object-fit: cover;
+    cursor: pointer; /* Indica que é clicável */
+    display: block;
+}
+
+.info {
+    flex-grow: 1;
+}
+
+.info h3 {
+    color: var(--cor-destaque-azul);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.sinopse {
+    margin-bottom: 15px;
+    color: var(--cor-texto-claro);
+}
+
+/* Botão de Review */
+.btn-review {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    background-color: #1b1b1b;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.btn-review:hover {
+    background-color: #333333;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+}
+
+/* Rodapé */
+.footer {
+    background-color: var(--cor-fundo-secundario);
+    padding: 15px 0;
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 1px solid var(--cor-borda);
+    color: #aaa;
+}
+
+/* Responsividade (para telas menores) */
+@media (max-width: 768px) {
+    .filme-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .capa-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .capa-container img {
+        width: 150px;
+        height: 225px;
+    }
+
+    .info {
+        padding: 0 10px;
+    }
+    
+    .btn-review {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* About collapsible panel */
+.about {
+    max-width: 1000px;
+    margin: 18px auto;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 320ms ease, opacity 260ms ease, padding 260ms ease;
+    padding: 0 18px;
+}
+
+.about.open {
+    max-height: 480px; /* suficiente para o texto; ajuste se precisar */
+    opacity: 1;
+    padding: 14px 18px 22px 18px;
+}
+
+.about-inner {
+    background: linear-gradient(180deg, rgba(20,20,20,0.98), rgba(10,10,10,0.95));
+    color: #efefef;
+    border-radius: 8px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.about h2 { margin-top: 0; }
+
+.about-close {
+    float: right;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .about.open { max-height: 520px; }
+}
+
+/* Contact section */
+.contact { max-width: 1000px; margin: 18px auto; padding: 0 18px; }
+.contact-inner { background: linear-gradient(180deg, rgba(15,15,15,0.98), rgba(8,8,8,0.95)); color:#efefef; border-radius:8px; padding:16px; box-shadow:0 8px 20px rgba(0,0,0,0.45);} 
+.whatsapp-btn { display:inline-block; background:#25D366; color:#0b3a2b; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:700; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+.whatsapp-btn:hover { filter:brightness(.95); transform: translateY(-2px); }
+.contact-note { color: #bdbdbd; font-size:0.9rem; margin-top:8px; }

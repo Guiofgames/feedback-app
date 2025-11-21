@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Review Público — Zootopia 2</title>
+  <meta name="description" content="Portal de avaliações profissional — Zootopia 2" />
+  <style>
+    :root{
+      /* Paleta alinhada com a tela inicial (Cine Crítica) */
+      --bg: #1b1b1b; --card: #0e0e0e; --muted: #bdbdbd; --accent: #e50914; --success:#10b981; --danger:#ef4444; --glass: rgba(255,255,255,0.03);
+      --radius:12px; --max-w:1100px; --gap:18px; --pad:18px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; background-color:var(--bg); color:#efefef}
+    .wrap{max-width:var(--max-w); margin:36px auto; padding:24px;}
+
+    header{display:flex; gap:16px; align-items:center; justify-content:space-between; margin-bottom:20px}
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ff6b6b);display:grid;place-items:center;font-weight:700;color:#ffffff}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    main{display:grid; grid-template-columns: 420px 1fr; gap:var(--gap)}
+
+    /* Form card */
+    .card{background:var(--card); padding:var(--pad); border-radius:var(--radius); box-shadow: 0 6px 18px rgba(2,6,23,0.6);}
+    label{display:block;font-size:13px;color:var(--muted); margin-bottom:6px}
+    input[type=text], input[type=email], textarea{width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:var(--glass); color:inherit; font-size:14px}
+    /* Melhor contraste para selects/filter (paleta vermelha/escura) */
+    select{width:100%; padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.06)); color:var(--muted); font-size:14px; appearance:none; -webkit-appearance:none; -moz-appearance:none}
+    .filters select{min-width:140px; color:#efefef; background:linear-gradient(90deg, var(--card), rgba(255,0,0,0.02)); border:1px solid rgba(255,255,255,0.04)}
+    .filters select option{background:var(--card); color:#efefef}
+    /* Hover/ativo: fundo escuro #333333 para melhor contraste ao passar o mouse ou quando ativo/selecionado */
+    select:hover, .filters select:hover{background:#333333; color:#efefef}
+    /* quando o select estiver aberto/ativo ou em foco, manter fundo escuro */
+    select:active, .filters select:active, select:focus, .filters select:focus{background:#333333; color:#efefef; outline:2px solid rgba(229,9,20,0.10); box-shadow:0 6px 14px rgba(229,9,20,0.06)}
+    /* itens dentro do dropdown: hover e estado selecionado também usam #333333 */
+    select option:hover, select option:checked, select option[selected]{background:#333333; color:#efefef}
+    select option:checked:hover, select option[selected]:hover{background:#292929; color:#efefef}
+    textarea{min-height:110px; resize:vertical}
+    .row{display:flex; gap:12px}
+    .btn{display:inline-flex; gap:8px; align-items:center; justify-content:center; padding:10px 14px; border-radius:10px; cursor:pointer; border:0; background:var(--accent); color:#ffffff; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,0.45); transition:transform 0.15s ease, box-shadow 0.15s ease}
+    .btn:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,0,0,0.55)}
+    .btn.secondary{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted); font-weight:600}
+
+    .stars{display:flex; gap:6px}
+    .star{width:36px;height:36px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.03);display:grid;place-items:center;cursor:pointer}
+    .star svg{width:18px;height:18px;opacity:0.65}
+    .star.active{background-color:  #ffe711;border:0}
+
+    .meta{display:flex; align-items:center; gap:12px; margin-top:10px}
+    .meta .avg{font-size:24px; font-weight:800}
+    .meta small{color:var(--muted)}
+
+    /* Reviews list */
+    .toolbar{display:flex; gap:12px; margin-bottom:12px; align-items:center}
+    .search{flex:1}
+    .filters{display:flex; gap:8px}
+    .reviews{display:grid; gap:12px}
+    .review{display:flex; gap:12px; padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .avatar{width:54px;height:54px;border-radius:10px; background:linear-gradient(135deg,#334155,#1e293b);display:grid;place-items:center;font-weight:700}
+    .rv-body{flex:1}
+    .rv-head{display:flex; justify-content:space-between; gap:8px}
+    .rv-title{font-weight:700}
+    .rv-meta{color:var(--muted); font-size:13px}
+    .rv-actions{display:flex; gap:8px}
+    .chip{padding:6px 8px;border-radius:12px;background:rgba(255,255,255,0.02);font-size:13px}
+
+    footer{color:var(--muted); font-size:13px; margin-top:18px; text-align:center}
+
+    /* Responsive */
+    @media (max-width:980px){main{grid-template-columns:1fr} .logo{width:48px;height:48px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AV</div>
+        <div>
+          <h1>Portal de Avaliações — Zootopia 2</h1>
+          <p class="lead">Colete feedbacks, calcule média, filtre e exporte avaliações.</p>
+        </div>
+      </div>
+      <div class="meta">
+        <div style="text-align:right">
+          <div class="avg" id="avgScore">—</div>
+          <small id="countLabel">Nenhuma avaliação</small>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Form -->
+      <section class="card" aria-labelledby="formTitle">
+        <h2 id="formTitle">Enviar nova avaliação</h2>
+        <form id="reviewForm">
+          <div style="margin-top:12px">
+            <label for="name">Nome</label>
+            <input id="name" type="text" placeholder="Seu nome — opcional" />
+          </div>
+          <div style="margin-top:10px">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="seu@exemplo.com — opcional" />
+          </div>
+          <div style="margin-top:10px">
+            <label for="title">Título</label>
+            <input id="title" type="text" placeholder="Resumo curto" required />
+          </div>
+          <div style="margin-top:10px">
+            <label>Nota</label>
+            <div class="stars" role="radiogroup" aria-label="Avaliação de 1 a 5" id="stars">
+              <button type="button" class="star" data-value="1" aria-checked="false" role="radio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.851 1.417 8.266L12 19.771 4.583 23.865 6 15.6 0 9.748l8.332-1.73L12 .587z"/></svg></button>
+              <button type="button" class="star" data-value="2" aria-checked="false" role="radio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.851 1.417 8.266L12 19.771 4.583 23.865 6 15.6 0 9.748l8.332-1.73L12 .587z"/></svg></button>
+              <button type="button" class="star" data-value="3" aria-checked="false" role="radio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.851 1.417 8.266L12 19.771 4.583 23.865 6 15.6 0 9.748l8.332-1.73L12 .587z"/></svg></button>
+              <button type="button" class="star" data-value="4" aria-checked="false" role="radio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.851 1.417 8.266L12 19.771 4.583 23.865 6 15.6 0 9.748l8.332-1.73L12 .587z"/></svg></button>
+              <button type="button" class="star" data-value="5" aria-checked="false" role="radio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.851 1.417 8.266L12 19.771 4.583 23.865 6 15.6 0 9.748l8.332-1.73L12 .587z"/></svg></button>
+            </div>
+            <input type="hidden" id="rating" value="0" required />
+          </div>
+
+          <div style="margin-top:10px">
+            <label for="comment">Comentário</label>
+            <textarea id="comment" placeholder="Conte-nos sua experiência" required></textarea>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+            <button class="btn" type="submit">Enviar avaliação</button>
+            <button type="button" id="btnClear" class="btn secondary">Limpar campo</button>
+            <button type="button" id="btnExport" class="btn secondary">Exportar JSON</button>
+          </div>
+        </form>
+
+        <div style="margin-top:14px;color:var(--muted);font-size:13px">
+        </div>
+      </section>
+
+      <!-- Reviews list -->
+      <section>
+        <div class="card">
+          <div class="toolbar">
+            <input id="search" class="search" type="text" placeholder="Pesquisar por título, comentário ou autor" />
+            <div class="filters">
+              <select id="filterRating">
+                <option value="0">Todas as notas</option>
+                <option value="5">5 estrelas</option>
+                <option value="4">4 estrelas</option>
+                <option value="3">3 estrelas</option>
+                <option value="2">2 estrelas</option>
+                <option value="1">1 estrela</option>
+              </select>
+              <select id="sortBy">
+                <option value="new">Mais recentes</option>
+                <option value="top">Melhores</option>
+                <option value="low">Piores</option>
+              </select>
+              <button id="btnImport" class="btn secondary">Importar</button>
+            </div>
+          </div>
+
+          <div class="reviews" id="reviewsList" aria-live="polite">
+            <!-- Reviews injected here -->
+          </div>
+        </div>
+
+        <footer>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // App constants (unique per filme)
+    const STORAGE_KEY = 'avaliacoes_agente_v1_zootopia2';
+
+    // Elements
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rating');
+    const form = document.getElementById('reviewForm');
+    const reviewsList = document.getElementById('reviewsList');
+    const avgScore = document.getElementById('avgScore');
+    const countLabel = document.getElementById('countLabel');
+    const searchInput = document.getElementById('search');
+    const filterRating = document.getElementById('filterRating');
+    const sortBy = document.getElementById('sortBy');
+    const btnExport = document.getElementById('btnExport');
+    const btnImport = document.getElementById('btnImport');
+    const btnClear = document.getElementById('btnClear');
+
+    // Helpers
+    const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+    const fmtDate = ts => new Date(ts).toLocaleString('pt-BR');
+
+    // Load & save
+    function load(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){console.error('load',e); return []}
+    }
+    function save(arr){ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+    // Render
+    function render(){
+      const all = load();
+      const q = (searchInput.value || '').toLowerCase().trim();
+      let list = all.slice();
+      // filter
+      const fr = Number(filterRating.value || 0);
+      if(fr>0) list = list.filter(r=>r.rating===fr);
+      if(q) list = list.filter(r=> (r.title+r.comment+(r.name||'')).toLowerCase().includes(q));
+      // sort
+      const s = sortBy.value;
+      if(s==='new') list.sort((a,b)=>b.created-a.created);
+      if(s==='top') list.sort((a,b)=>b.rating-b.rating || b.created-a.created);
+      if(s==='low') list.sort((a,b)=>a.rating-b.rating || b.created-a.created);
+
+      reviewsList.innerHTML = '';
+      if(list.length===0){ reviewsList.innerHTML = '<div style="padding:28px;color:var(--muted)">Nenhuma avaliação encontrada</div>'; }
+      list.forEach(r=>{
+        const node = document.createElement('article'); node.className='review'; node.setAttribute('data-id', r.id);
+        node.innerHTML = `
+          <div class="avatar" aria-hidden="true">${(r.name||'Anônimo').slice(0,2).toUpperCase()}</div>
+          <div class="rv-body">
+            <div class="rv-head">
+              <div>
+                <div class="rv-title">${escapeHtml(r.title)}</div>
+                <div class="rv-meta">${escapeHtml(r.name||'Anônimo')} • ${fmtDate(r.created)} • <span class="chip">${r.rating}★</span></div>
+              </div>
+              <div class="rv-actions">
+                <button class="btn secondary" data-action="edit">Editar</button>
+                <button class="btn secondary" data-action="del">Excluir</button>
+              </div>
+            </div>
+            <p style="margin-top:8px;color:var(--muted)">${escapeHtml(r.comment)}</p>
+          </div>
+        `;
+        reviewsList.appendChild(node);
+      });
+
+      // summary
+      const count = all.length;
+      const avg = count ? (all.reduce((s,x)=>s+x.rating,0)/count) : 0;
+      avgScore.textContent = count ? (Math.round(avg*10)/10) + ' / 5' : '—';
+      countLabel.textContent = count ? (count + ' avaliações') : 'Nenhuma avaliação';
+
+      // attach actions
+      reviewsList.querySelectorAll('[data-action]').forEach(btn=>{
+        btn.addEventListener('click', e=>{
+          const action = btn.getAttribute('data-action');
+          const id = btn.closest('.review').dataset.id;
+          if(action==='del') delReview(id);
+          if(action==='edit') startEdit(id);
+        })
+      });
+    }
+
+    function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+    // CRUD
+    function addReview(payload){
+      const arr = load(); arr.push(payload); save(arr); render(); }
+    function delReview(id){
+      if(!confirm('Deseja realmente excluir esta avaliação?')) return;
+      const arr = load().filter(r=>r.id!==id); save(arr); render(); }
+    function startEdit(id){
+      const arr = load(); const r = arr.find(x=>x.id===id); if(!r) return alert('Avaliação não encontrada');
+      // prefill form
+      document.getElementById('name').value = r.name||'';
+      document.getElementById('email').value = r.email||'';
+      document.getElementById('title').value = r.title;
+      document.getElementById('comment').value = r.comment;
+      setRating(r.rating);
+      // remove old entry and save on submit by replacing
+      delReview(id);
+    }
+
+    function setRating(n){ ratingInput.value = n; stars.forEach(s=>{ const v=Number(s.dataset.value); s.classList.toggle('active', v<=n); s.setAttribute('aria-checked', v===n); }); }
+
+    // events
+    stars.forEach(s=>{
+      s.addEventListener('click', ()=>{
+        const v = Number(s.dataset.value);
+        ratingInput.value = v; setRating(v);
+      });
+    });
+
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      const comment = document.getElementById('comment').value.trim();
+      const rating = Number(ratingInput.value || 0);
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if(!title || !comment || rating<1){ alert('Preencha título, comentário e selecione uma nota (1 a 5).'); return; }
+      const payload = { id: uid(), title, comment, rating, name: name||'Anônimo', email, created: Date.now() };
+      addReview(payload);
+      form.reset(); setRating(0);
+    });
+
+    btnClear.addEventListener('click', ()=>{ form.reset(); setRating(0); });
+
+    // search/filter/sort
+    [searchInput, filterRating, sortBy].forEach(el=>el.addEventListener('input', render));
+
+    // export/import
+    btnExport.addEventListener('click', ()=>{
+      const data = localStorage.getItem(STORAGE_KEY) || '[]';
+      const blob = new Blob([data], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='avaliacoes.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    btnImport.addEventListener('click', ()=>{
+      const inp = document.createElement('input'); inp.type='file'; inp.accept='application/json';
+      inp.onchange = ()=>{
+        const f = inp.files[0]; if(!f) return;
+        const reader = new FileReader(); reader.onload = e=>{
+          try{ const parsed = JSON.parse(e.target.result); if(!Array.isArray(parsed)) throw new Error('Formato inválido');
+            save(parsed); render(); alert('Importado com sucesso.');
+          }catch(err){ alert('Erro ao importar: ' + err.message); }
+        }; reader.readAsText(f);
+      };
+      inp.click();
+    });
+
+    // keyboard accessibility: allow keyboard number keys to set rating
+    window.addEventListener('keydown', e=>{
+      if(['1','2','3','4','5'].includes(e.key)){ setRating(Number(e.key)); }
+    });
+
+    // initial demo data (only if empty)
+    (function seedIfEmpty(){ if(load().length===0){ const demo=[
+    ]; save(demo); }
+    render(); })();
+  </script>
+</body>
+</html>
