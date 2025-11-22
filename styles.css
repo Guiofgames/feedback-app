@@ -236,6 +236,52 @@ body {
     display: block;
 }
 
+/* Overlay 'Assistir Trailer' e animação ao passar o mouse */
+.capa-container a {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.capa-container a::after {
+    content: "Assistir Trailer";
+    position: absolute;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: rgba(0,0,0,0.45);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 240ms ease, transform 260ms ease;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    pointer-events: none; /* overlay não bloqueia o clique no link */
+}
+
+/* Allow per-link custom overlay text via data-overlay attribute */
+.capa-container a[data-overlay]::after {
+    content: attr(data-overlay);
+}
+
+.capa-container a:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.capa-container a img {
+    transition: transform 360ms ease;
+    will-change: transform;
+}
+
+.capa-container a:hover img {
+    transform: scale(1.07);
+}
+
 .info {
     flex-grow: 1;
 }
@@ -362,3 +408,76 @@ body {
 .whatsapp-btn { display:inline-block; background:#25D366; color:#0b3a2b; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:700; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
 .whatsapp-btn:hover { filter:brightness(.95); transform: translateY(-2px); }
 .contact-note { color: #bdbdbd; font-size:0.9rem; margin-top:8px; }
+
+/* --------------------------------------------
+   Responsividade aprimorada (fluid typography,
+   grids, imagens e comportamento mobile)
+   -------------------------------------------- */
+
+:root {
+    --max-content-width: 1200px;
+}
+
+/* Fluid typography for headings and general scale */
+h1 { font-size: clamp(1.6rem, 3.8vw, 3.6rem); }
+.container h2 { font-size: clamp(1.25rem, 3.2vw, 2rem); }
+.info h3, .hero-sub { font-size: clamp(1rem, 2.2vw, 1.6rem); }
+
+/* Make filme cards adapt using CSS grid for better wrapping */
+.filme-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "poster info";
+    gap: 20px;
+    align-items: start;
+}
+
+.capa-container { grid-area: poster; }
+.info { grid-area: info; }
+
+/* Responsive poster sizes using clamp */
+.capa-container img {
+    width: clamp(120px, 18vw, 220px);
+    height: clamp(170px, 26vw, 330px);
+}
+
+/* Make review button more flexible */
+.botoes-review { margin-top: 18px; }
+.btn-review { width: auto; min-width: 160px; padding: 10px 18px; }
+
+/* Header / nav responsiveness improvements */
+.nav-links a { padding: 8px 10px; font-size: clamp(14px, 2.2vw, 18px); }
+
+/* Mobile: stack poster above info and center content */
+@media (max-width: 900px) {
+    .filme-card { grid-template-columns: 1fr; grid-template-areas: "poster" "info"; text-align: center; }
+    .capa-container { margin: 0 auto 14px auto; }
+    .info { padding: 0 8px; }
+    .hero-sub { font-size: clamp(18px, 4.5vw, 24px); }
+}
+
+/* Smaller phones: tighten paddings and reduce poster size */
+@media (max-width: 480px) {
+    .capa-container img { width: clamp(110px, 34vw, 160px); height: clamp(150px, 46vw, 220px); }
+    .container { padding: 0 12px; }
+    .hero { padding: 12px 10px 20px 10px; }
+    .nav-links { right: 12px; }
+    .btn-review { font-size: 0.95rem; padding: 10px 12px; }
+}
+
+/* Improve keyboard accessibility for nav toggle */
+.nav-toggle:focus { outline: 2px solid rgba(229,9,20,0.18); border-radius: 6px; }
+
+/* Ensure poster overlay behaves on touch devices: show on active touch */
+@media (hover: none) {
+    .capa-container a::after { opacity: 1; transform: translateY(0); background: rgba(0,0,0,0.35); }
+    .capa-container a img { transform: none; }
+}
+
+/* Slightly reduce card hover lift on smaller screens for stability */
+@media (max-width: 700px) {
+    .filme-card:hover { transform: none; box-shadow: 0 6px 12px rgba(0,0,0,0.45); }
+}
+
+/* Constrain the main container to a sensible max width and center */
+.container { max-width: var(--max-content-width); padding-left: 18px; padding-right: 18px; }
